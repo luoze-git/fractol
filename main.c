@@ -1,9 +1,12 @@
 #include "fracto_header.h"
 
-/*mlx_init
-mlx_new_image
-mlx_put_pixel
-mlx_image_to_window
-mlx_loop
-mlx_close_window
-*/
+int	main(void)
+{
+	t_context ctx;
+
+	init_context(&ctx);
+	iterate_all_pixels(&ctx);
+	mlx_loop(ctx.mlx);
+    mlx_terminate(ctx.mlx);
+	return (EXIT_SUCCESS);
+}

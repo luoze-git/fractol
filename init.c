@@ -1,4 +1,3 @@
-#include "MLX42.h"
 #include "fracto_header.h"
 
 // set the initial view for the fractal. Now only for Mandelbrot
@@ -15,15 +14,15 @@ void	init_context(t_context *ctx)
 	ctx->mlx = mlx_init(WIDTH, HEIGHT, "fractol", false);
 	if (!ctx->mlx)
 		exit(EXIT_FAILURE);
-	ctx->img.mlx_img = mlx_new_image(ctx->mlx, WIDTH, HEIGHT);
-	if (!ctx->img.mlx_img)
+	ctx->img = mlx_new_image(ctx->mlx, WIDTH, HEIGHT);
+	if (!ctx->img)
 	{
 		mlx_terminate(ctx->mlx);
 		exit(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(ctx->mlx, ctx->img.mlx_img, 0, 0) < 0)
+	if (mlx_image_to_window(ctx->mlx, ctx->img, 0, 0) < 0)
 	{
-		mlx_delete_image(ctx->mlx, ctx->img.mlx_img);
+		mlx_delete_image(ctx->mlx, ctx->img);
 		mlx_terminate(ctx->mlx);
 		exit(EXIT_FAILURE);
 	}
