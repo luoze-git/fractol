@@ -1,27 +1,18 @@
 #ifndef FRACTO_HEADER_H
 # define FRACTO_HEADER_H
 
+#include <stdlib.h>
+#define WIDTH 500
+#define HEIGHT 500
+
 // big context
 typedef struct s_context
 {
 	void	*mlx;
-	void	*win;
-
-	t_img	img;
+	mlx_image_t	*img;
 	t_view	view;
-
 	int		max_iter;
 }			t_context;
-
-// image
-typedef struct s_img
-{
-	void	*img;
-	char	*addr_pix;
-	int		bpp_bits;
-	int		line_len_bytes;
-	int		endian_dummy;
-}			t_img;
 
 // a mathly informed practical bound for the chosen fractal
 typedef struct s_view
@@ -47,5 +38,5 @@ void		mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter);
 int			escape_check(t_complex z);
 
 // paint according to args
-void		put_pixel(t_img *img, int x, int y, int color);
+void		put_pixel(mlx_image_t *img, int x, int y, int color);
 #endif // FRACTO_HEADER_H
