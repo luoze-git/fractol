@@ -6,6 +6,8 @@
 # include <stdlib.h>
 # define WIDTH 2000
 # define HEIGHT 1400
+# define M_PI 3.14159265358979323846
+# define TAU (2.0 * M_PI)
 
 // a mathly informed practical bound for the chosen fractal
 typedef struct s_view
@@ -58,7 +60,7 @@ void				pixel_to_complex(t_context *ctx, int x, int y,
 void				zoom_view(t_view *v, double cx, double cy, double factor);
 void				loop_hook(void *param);
 // paint according to args
-void				bw_color(int iter, int max_iter, int *color);
+void				pixel_color_data_fillin(int iter, int max_iter, int *color);
 void				rendering_loop(t_context *ctx);
 
 void				handle_key_callback(mlx_key_data_t key, void *param);
