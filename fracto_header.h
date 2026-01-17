@@ -21,6 +21,7 @@ typedef struct s_context
 	mlx_image_t *img;
 	t_view view;
 	int max_iter;
+	t_complex julia_c;
 } t_context;
 
 // coordinates
@@ -36,7 +37,7 @@ void set_view(t_context *ctx);
 
 // math part
 void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter);
-int escape_check_mandelbrot(t_complex z);
+int escape_check(t_complex z);
 void pixel_to_complex_c(t_context *ctx, int x, int y, t_complex *c);
 void zoom_view(t_view *v, double cx, double cy, double factor);
 
