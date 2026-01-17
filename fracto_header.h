@@ -19,14 +19,15 @@ typedef struct s_view
 typedef enum e_fractal_type
 {
 	FRACTAL_MANDELBROT,
-	FRACTAL_JULIA
+	FRACTAL_JULIA,
+	FRACTAL_TRICORN
 }					t_fractal_type;
 
 // coordinates
 typedef struct s_complex
 {
-	double			re;
-	double			im;
+	double			r;
+	double			i;
 }					t_complex;
 
 typedef struct s_context
@@ -49,6 +50,7 @@ void				julia_iter_math(t_complex z0, t_complex c, int max_iter,
 						int *out_iter);
 void				mandelbrot_iter_math(t_complex c, int max_iter,
 						int *out_iter);
+void	tricorn_iter_math(t_complex c, int max_iter, int *out_iter);
 int					escape_check(t_complex z);
 void				pixel_to_complex(t_context *ctx, int x, int y,
 						t_complex *c);

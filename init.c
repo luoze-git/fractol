@@ -10,7 +10,7 @@ void	set_view(t_context *ctx)
 		ctx->view.im_min = -2.0;
 		ctx->view.im_max = 2.0;
 	}
-	if (ctx->fractal_type == FRACTAL_MANDELBROT)
+	if (ctx->fractal_type == FRACTAL_MANDELBROT || ctx->fractal_type == FRACTAL_TRICORN)
 	{
 		ctx->view.re_min = -2.0;
 		ctx->view.re_max = 1.0;
