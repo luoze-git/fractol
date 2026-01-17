@@ -38,6 +38,7 @@ void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s);
 
 int					ft_atoi(const char *str);
+int					ft_atod(const char *s, double *out);
 char				*ft_itoa(int n);
 
 int					ft_isalpha(int c);

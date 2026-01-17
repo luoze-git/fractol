@@ -14,6 +14,7 @@ INCLUDES:= -I .
 
 # ---- sources
 MSRCS := \
+	ft_atod.c \
 	ft_atoi.c \
 	ft_bzero.c \
 	ft_calloc.c \
