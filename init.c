@@ -1,5 +1,6 @@
 #include "fracto_header.h"
 
+
 // set the initial view for the fractal. Now only for Mandelbrot
 void	set_view(t_context *ctx)
 {
@@ -7,6 +8,11 @@ void	set_view(t_context *ctx)
 	ctx->view.re_max = 1.0;
 	ctx->view.im_min = -1.5;
 	ctx->view.im_max = 1.5;
+}
+
+void init_hooks(t_context *ctx)
+{
+	mlx_key_hook(ctx->mlx, &handle_key_callback, ctx);
 }
 
 void	init_context(t_context *ctx)
@@ -27,5 +33,6 @@ void	init_context(t_context *ctx)
 		exit(EXIT_FAILURE);
 	}
 	ctx->max_iter = 100;
+	init_hooks(ctx);
 	set_view(ctx);
 }

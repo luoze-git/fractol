@@ -43,4 +43,6 @@ void pixel_to_complex_c(t_context *ctx, int x, int y, t_complex *c);
 // paint according to args
 void bw_color(int iter, int max_iter, int *color);
 void iterate_all_pixels(t_context *ctx);
+
+void handle_key_callback(mlx_key_data_t key, void *param);
 #endif // FRACTO_HEADER_H

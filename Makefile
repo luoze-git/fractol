@@ -5,7 +5,7 @@ SRC_FILES = $(SRC)main.c \
 			$(SRC)render.c \
 			$(SRC)init.c \
 			$(SRC)mandelbrot.c \
-			$(SRC)iter_exit.c
+			$(SRC)callbacks.c
 
 SRC_OBJS = $(SRC_FILES:.c=.o)
 
