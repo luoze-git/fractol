@@ -5,7 +5,8 @@ SRC_FILES = $(SRC)main.c \
 			$(SRC)render.c \
 			$(SRC)init.c \
 			$(SRC)mandelbrot.c \
-			$(SRC)callbacks.c
+			$(SRC)callbacks.c \
+			$(SRC)math_util.c
 
 SRC_OBJS = $(SRC_FILES:.c=.o)
 
@@ -63,5 +64,7 @@ fclean: clean
 clean:
 	rm -f $(SRC_OBJS)
 	$(MAKE) -C $(DLIBFT) clean
+
+$(SRC_OBJS): fracto_header.h
 
 .PHONY: all clean fclean re bonus
