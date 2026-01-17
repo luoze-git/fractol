@@ -1,5 +1,33 @@
 #include "fracto_header.h"
 
+static void	apply_pan(t_context *ctx, keys_t key)
+{
+	double	width;
+	double	height;
+	double	dx;
+	double	dy;
+
+	width = ctx->view.re_max - ctx->view.re_min;
+	height = ctx->view.im_max - ctx->view.im_min;
+	dx = 0.0;
+	dy = 0.0;
+	if (key == MLX_KEY_LEFT)
+		dx = -0.05 * width;
+	else if (key == MLX_KEY_RIGHT)
+		dx = 0.05 * width;
+	else if (key == MLX_KEY_UP)
+		dy = 0.05 * height;
+	else if (key == MLX_KEY_DOWN)
+		dy = -0.05 * height;
+	else
+		return ;
+	ctx->view.re_min += dx;
+	ctx->view.re_max += dx;
+	ctx->view.im_min += dy;
+	ctx->view.im_max += dy;
+	ctx->needs_rendering = 1;
+}
+
 void	handle_key_callback(mlx_key_data_t key, void *param)
 {
 	t_context	*ctx;
@@ -7,6 +35,9 @@ void	handle_key_callback(mlx_key_data_t key, void *param)
 	ctx = param;
 	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS)
 		mlx_close_window(ctx->mlx);
+	if (key.action != MLX_PRESS && key.action != MLX_REPEAT)
+		return ;
+	apply_pan(ctx, key.key);
 }
 
 void	handle_scroll_callback(double xdelta, double ydelta, void *param)
