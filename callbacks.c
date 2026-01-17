@@ -26,7 +26,7 @@ void	handle_scroll_callback(double xdelta, double ydelta, void *param)
 	else
 		return ;
 	mlx_get_mouse_pos(ctx->mlx, &mx, &my);
-	pixel_to_complex_c(ctx, mx, my, &c);
+	pixel_to_complex(ctx, mx, my, &c);
 	zoom_view(&ctx->view, c.re, c.im, factor);
 	iterate_all_pixels(ctx);
 }

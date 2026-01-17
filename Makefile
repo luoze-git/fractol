@@ -4,7 +4,9 @@ SRC = ./
 SRC_FILES = $(SRC)main.c \
 			$(SRC)render.c \
 			$(SRC)init.c \
+			$(SRC)parse.c \
 			$(SRC)mandelbrot.c \
+			$(SRC)julia.c \
 			$(SRC)callbacks.c \
 			$(SRC)math_util.c
 
@@ -21,7 +23,6 @@ FT = ft
 MLX42 = mlx42
 BUILD_DIR = $(MLX42)/build
 MLX42LIB = $(BUILD_DIR)/libmlx42.a
-GLFW_LIB = $(BUILD_DIR)/_deps/glfw-build/src/libglfw3.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I. -I$(MLX42)/include -I$(MLX42)/include/MLX42
@@ -30,7 +31,7 @@ CFLAGS = -Wall -Wextra -Werror -I. -I$(MLX42)/include -I$(MLX42)/include/MLX42
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Linux)
-	EXT_LIBS = $(GLFW_LIB) -ldl -pthread -lm -lX11 -lXext -lXrandr -lXinerama -lXcursor -lXi -lXxf86vm
+	EXT_LIBS = -lglfw -ldl -pthread -lm -lX11 -lXext -lXrandr -lXinerama -lXcursor -lXi -lXxf86vm
 else
 	EXT_LIBS = -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 endif
