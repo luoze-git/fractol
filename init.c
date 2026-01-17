@@ -10,7 +10,8 @@ void	set_view(t_context *ctx)
 		ctx->view.im_min = -2.0;
 		ctx->view.im_max = 2.0;
 	}
-	if (ctx->fractal_type == FRACTAL_MANDELBROT || ctx->fractal_type == FRACTAL_TRICORN)
+	if (ctx->fractal_type == FRACTAL_MANDELBROT
+		|| ctx->fractal_type == FRACTAL_TRICORN)
 	{
 		ctx->view.re_min = -2.0;
 		ctx->view.re_max = 1.0;
@@ -21,8 +22,9 @@ void	set_view(t_context *ctx)
 
 void	init_hooks(t_context *ctx)
 {
-	mlx_key_hook(ctx->mlx, &handle_key_callback, ctx);
-	mlx_scroll_hook(ctx->mlx, &handle_scroll_callback, ctx);
+	mlx_key_hook(ctx->mlx, handle_key_callback, ctx);
+	mlx_scroll_hook(ctx->mlx, handle_scroll_callback, ctx);
+	mlx_loop_hook(ctx->mlx, loop_hook, ctx);
 }
 
 void	init_context(t_context *ctx)
@@ -42,6 +44,7 @@ void	init_context(t_context *ctx)
 		mlx_terminate(ctx->mlx);
 		exit(EXIT_FAILURE);
 	}
+	ctx->needs_rendering = 0;
 	ctx->max_iter = 100;
 	init_hooks(ctx);
 	set_view(ctx);

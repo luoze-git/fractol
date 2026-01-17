@@ -38,6 +38,7 @@ typedef struct s_context
 	int				max_iter;
 	t_complex		const_arg;
 	t_fractal_type	fractal_type;
+	int				needs_rendering;
 }					t_context;
 
 // meaningfully init struct
@@ -50,15 +51,15 @@ void				julia_iter_math(t_complex z0, t_complex c, int max_iter,
 						int *out_iter);
 void				mandelbrot_iter_math(t_complex c, int max_iter,
 						int *out_iter);
-void	tricorn_iter_math(t_complex c, int max_iter, int *out_iter);
+void				tricorn_iter_math(t_complex c, int max_iter, int *out_iter);
 int					escape_check(t_complex z);
 void				pixel_to_complex(t_context *ctx, int x, int y,
 						t_complex *c);
 void				zoom_view(t_view *v, double cx, double cy, double factor);
-
+void				loop_hook(void *param);
 // paint according to args
 void				bw_color(int iter, int max_iter, int *color);
-void				iterate_all_pixels(t_context *ctx);
+void				rendering_loop(t_context *ctx);
 
 void				handle_key_callback(mlx_key_data_t key, void *param);
 void				handle_scroll_callback(double xdelta, double ydelta,

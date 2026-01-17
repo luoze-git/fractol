@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 
 	parse_args(argc, argv, &ctx);
 	init_context(&ctx);
-	iterate_all_pixels(&ctx);
+	rendering_loop(&ctx);
 	mlx_loop(ctx.mlx);
 	mlx_terminate(ctx.mlx);
 	return (EXIT_SUCCESS);

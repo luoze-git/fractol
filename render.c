@@ -2,10 +2,10 @@
 
 // start + fraction * range
 // todo: review the scaling logic
-void pixel_to_complex(t_context *ctx, int x, int y, t_complex *out)
+void	pixel_to_complex(t_context *ctx, int x, int y, t_complex *out)
 {
-	double fx;
-	double fy;
+	double	fx;
+	double	fy;
 
 	fx = (double)x / WIDTH;
 	fy = (double)y / HEIGHT;
@@ -16,7 +16,7 @@ void pixel_to_complex(t_context *ctx, int x, int y, t_complex *out)
 /// @brief quadratic complex fractals escape check
 /// @param z
 /// @return true if the point escapes, false otherwise
-int escape_check(t_complex z)
+int	escape_check(t_complex z)
 {
 	return (z.r * z.r + z.i * z.i > 4.0);
 }
@@ -26,12 +26,12 @@ int escape_check(t_complex z)
 /// @param c
 /// @param max_iter
 /// @param out_iter
-void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
+void	mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
 {
-	t_complex z;
-	int iter;
-	double r2;
-	double i2;
+	t_complex	z;
+	int			iter;
+	double		r2;
+	double		i2;
 
 	z.r = 0.0;
 	z.i = 0.0;
@@ -41,7 +41,7 @@ void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
 		r2 = z.r * z.r;
 		i2 = z.i * z.i;
 		if (escape_check(z))
-			break;
+			break ;
 		z.i = 2.0 * z.r * z.i + c.i;
 		z.r = r2 - i2 + c.r;
 		iter++;
@@ -49,7 +49,7 @@ void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
 	*out_iter = iter;
 }
 
-void bw_color(int iter, int max_iter, int *color)
+void	bw_color(int iter, int max_iter, int *color)
 {
 	if (iter == max_iter)
 		*color = 0x000000;
@@ -61,7 +61,7 @@ void bw_color(int iter, int max_iter, int *color)
 /// @param ctx
 /// @param c
 /// @param iter
-void fractals_iter_dispatcher(t_context *ctx, t_complex c, int *iter)
+void	fractals_iter_dispatcher(t_context *ctx, t_complex c, int *iter)
 {
 	if (ctx->fractal_type == FRACTAL_MANDELBROT)
 		mandelbrot_iter_math(c, ctx->max_iter, iter);
@@ -71,13 +71,13 @@ void fractals_iter_dispatcher(t_context *ctx, t_complex c, int *iter)
 		tricorn_iter_math(c, ctx->max_iter, iter);
 }
 
-void iterate_all_pixels(t_context *ctx)
+void	rendering_loop(t_context *ctx)
 {
-	int x;
-	int y;
-	t_complex ptoc;
-	int iter;
-	int color;
+	int			x;
+	int			y;
+	t_complex	ptoc;
+	int			iter;
+	int			color;
 
 	y = 0;
 	while (y < HEIGHT)
