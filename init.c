@@ -3,10 +3,20 @@
 // set the initial view for the fractal. Now only for Mandelbrot
 void	set_view(t_context *ctx)
 {
-	ctx->view.re_min = -2.0;
-	ctx->view.re_max = 1.0;
-	ctx->view.im_min = -1.5;
-	ctx->view.im_max = 1.5;
+	if (ctx->fractal_type == FRACTAL_JULIA)
+	{
+		ctx->view.re_min = -2.0;
+		ctx->view.re_max = 2.0;
+		ctx->view.im_min = -2.0;
+		ctx->view.im_max = 2.0;
+	}
+	if (ctx->fractal_type == FRACTAL_MANDELBROT)
+	{
+		ctx->view.re_min = -2.0;
+		ctx->view.re_max = 1.0;
+		ctx->view.im_min = -1.5;
+		ctx->view.im_max = 1.5;
+	}
 }
 
 void	init_hooks(t_context *ctx)

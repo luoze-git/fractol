@@ -2,21 +2,21 @@
 
 // start + fraction * range
 // todo: review the scaling logic
-void pixel_to_complex_c(t_context *ctx, int x, int y, t_complex *c)
+void	pixel_to_complex(t_context *ctx, int x, int y, t_complex *out)
 {
-	double fx;
-	double fy;
+	double	fx;
+	double	fy;
 
 	fx = (double)x / WIDTH;
 	fy = (double)y / HEIGHT;
-	c->re = ctx->view.re_min + fx * (ctx->view.re_max - ctx->view.re_min);
-	c->im = ctx->view.im_max - fy * (ctx->view.im_max - ctx->view.im_min);
+	out->re = ctx->view.re_min + fx * (ctx->view.re_max - ctx->view.re_min);
+	out->im = ctx->view.im_max - fy * (ctx->view.im_max - ctx->view.im_min);
 }
 
 /// @brief quadratic complex fractals escape check
-/// @param z 
+/// @param z
 /// @return true if the point escapes, false otherwise
-int escape_check(t_complex z)
+int	escape_check(t_complex z)
 {
 	return (z.re * z.re + z.im * z.im > 4.0);
 }
@@ -26,12 +26,12 @@ int escape_check(t_complex z)
 /// @param c
 /// @param max_iter
 /// @param out_iter
-void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
+void	mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
 {
-	t_complex z;
-	int iter;
-	double re2;
-	double im2;
+	t_complex	z;
+	int			iter;
+	double		re2;
+	double		im2;
 
 	z.re = 0.0;
 	z.im = 0.0;
@@ -41,7 +41,7 @@ void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
 		re2 = z.re * z.re;
 		im2 = z.im * z.im;
 		if (escape_check(z))
-			break;
+			break ;
 		z.im = 2.0 * z.re * z.im + c.im;
 		z.re = re2 - im2 + c.re;
 		iter++;
@@ -49,7 +49,7 @@ void mandelbrot_iter_math(t_complex c, int max_iter, int *out_iter)
 	*out_iter = iter;
 }
 
-void bw_color(int iter, int max_iter, int *color)
+void	bw_color(int iter, int max_iter, int *color)
 {
 	if (iter == max_iter)
 		*color = 0x000000;
@@ -57,13 +57,25 @@ void bw_color(int iter, int max_iter, int *color)
 		*color = 0xFFFFFF;
 }
 
-void iterate_all_pixels(t_context *ctx)
+/// @brief choosing which fractal to compute
+/// @param ctx
+/// @param c
+/// @param iter
+void	fractals_iter_dispatcher(t_context *ctx, t_complex c, int *iter)
 {
-	int x;
-	int y;
-	t_complex c;
-	int iter;
-	int color;
+	if (ctx->fractal_type == FRACTAL_MANDELBROT)
+		mandelbrot_iter_math(c, ctx->max_iter, iter);
+	if (ctx->fractal_type == FRACTAL_JULIA)
+		julia_iter_math(c, ctx->const_arg, ctx->max_iter, iter);
+}
+
+void	iterate_all_pixels(t_context *ctx)
+{
+	int			x;
+	int			y;
+	t_complex	ptoc;
+	int			iter;
+	int			color;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -71,8 +83,8 @@ void iterate_all_pixels(t_context *ctx)
 		x = 0;
 		while (x < WIDTH)
 		{
-			pixel_to_complex_c(ctx, x, y, &c);
-			mandelbrot_iter_math(c, ctx->max_iter, &iter);
+			pixel_to_complex(ctx, x, y, &ptoc);
+			fractals_iter_dispatcher(ctx, ptoc, &iter);
 			bw_color(iter, ctx->max_iter, &color);
 			mlx_put_pixel(ctx->img, x, y, color);
 			x++;
