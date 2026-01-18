@@ -1,39 +1,38 @@
 NAME = fractol
 
-SRC = ./
-SRC_FILES = $(SRC)main.c \
-			$(SRC)render.c \
-			$(SRC)init.c \
-			$(SRC)parse.c \
-			$(SRC)mandelbrot.c \
-			$(SRC)julia.c \
-			$(SRC)callbacks.c \
-			$(SRC)math_util.c
+SRC_FILES = callbacks.c \
+			fractals.c \
+			init.c \
+			main.c \
+			parse.c \
+			render.c \
+			util_shared.c
 
 SRC_OBJS = $(SRC_FILES:.c=.o)
 
-## Libraries
+##Libriaries
 
-# Libft
+#Libft
 DLIBFT = libft
 LIBFT = $(DLIBFT)/libft.a
 FT = ft
 
-# MLX42
+#MLX42
 MLX42 = mlx42
 BUILD_DIR = $(MLX42)/build
 MLX42LIB = $(BUILD_DIR)/libmlx42.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I. -I$(MLX42)/include -I$(MLX42)/include/MLX42
+CFLAGS = -Wall -Wextra -Werror -I. -I$(MLX42)/include
 
-## Current OS
+
+# Current OS
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Linux)
-	EXT_LIBS = -lglfw -ldl -pthread -lm -lX11 -lXext -lXrandr -lXinerama -lXcursor -lXi -lXxf86vm
+	EXT_LIBS = -ldl -lglfw -pthread -lm
 else
-	EXT_LIBS = -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+	EXT_LIBS += -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
 all: $(NAME)
@@ -41,31 +40,29 @@ all: $(NAME)
 bonus: $(NAME)
 
 $(NAME): $(MLX42LIB) $(SRC_OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SRC_OBJS) -o $@ -L$(DLIBFT) -l$(FT) -L$(BUILD_DIR) -lmlx42 $(EXT_LIBS)
+	cc $(CFLAGS) $^ -o $@ -L$(DLIBFT) -l$(FT) -L$(BUILD_DIR) -lmlx42 $(EXT_LIBS)
 
-$(LIBFT):
-	$(MAKE) -C $(DLIBFT) all
+$(LIBFT) :
+	make -C $(DLIBFT) all
 
 $(MLX42LIB):
 	if [ ! -d $(MLX42) ]; then \
-		echo "Error: $(MLX42) directory not found. Provide MLX42 at $(MLX42) or update MLX42 path."; \
-		exit 1; \
+		git clone https://github.com/codam-coding-college/MLX42.git $(MLX42); \
 	fi
 	if [ ! -f $(BUILD_DIR)/libmlx42.a ]; then \
-		cmake -S $(MLX42) -B $(BUILD_DIR) && \
+		cmake $(MLX42) -B $(BUILD_DIR) && \
 		cmake --build $(BUILD_DIR) -j4; \
 	fi
 
-re: fclean all
+re : fclean all
 
-fclean: clean
+fclean : clean
 	rm -f $(NAME)
-	$(MAKE) -C $(DLIBFT) fclean
+	make -C $(DLIBFT) fclean
+	rm -rf $(MLX42)
 
-clean:
+clean : 
 	rm -f $(SRC_OBJS)
-	$(MAKE) -C $(DLIBFT) clean
+	make -C $(DLIBFT) clean
 
-$(SRC_OBJS): fracto_header.h
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus #debug debug_bonus
