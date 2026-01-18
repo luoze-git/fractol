@@ -1,15 +1,18 @@
 #ifndef FRACTO_HEADER_H
 # define FRACTO_HEADER_H
 
+/* Dependencies */
 # include "libft/libft.h"
 # include "mlx42/include/MLX42/MLX42.h"
 # include <stdlib.h>
-# define WIDTH 2000
-# define HEIGHT 1400
+
+/* Compile-time configuration */
+# define WIDTH 2000  // window width
+# define HEIGHT 1400 // window height
 # define M_PI 3.14159265358979323846
 # define TAU (2.0 * M_PI)
 
-// a mathly informed practical bound for the chosen fractal
+/* Core types */
 typedef struct s_view
 {
 	double			re_min;
@@ -25,7 +28,6 @@ typedef enum e_fractal_type
 	FRACTAL_TRICORN
 }					t_fractal_type;
 
-// coordinates
 typedef struct s_complex
 {
 	double			r;
@@ -43,26 +45,25 @@ typedef struct s_context
 	int				needs_rendering;
 }					t_context;
 
-// meaningfully init struct
+/* Init / configuration */
 void				init_context(t_context *ctx);
-void				set_view(t_context *ctx);
 void				parse_args(int argc, char **argv, t_context *ctx);
 
-// math part
+/* Math / fractal iteration */
 void				julia_iter_math(t_complex z0, t_complex c, int max_iter,
 						int *out_iter);
 void				mandelbrot_iter_math(t_complex c, int max_iter,
 						int *out_iter);
 void				tricorn_iter_math(t_complex c, int max_iter, int *out_iter);
-int					escape_check(t_complex z);
 void				pixel_to_complex(t_context *ctx, int x, int y,
 						t_complex *c);
-void				zoom_view(t_view *v, double cx, double cy, double factor);
-void				loop_hook(void *param);
-// paint according to args
+void				loop_callback(void *param);
+
+/* Rendering */
 void				pixel_color_data_fillin(int iter, int max_iter, int *color);
 void				rendering_loop(t_context *ctx);
 
+/* Input callbacks */
 void				handle_key_callback(mlx_key_data_t key, void *param);
 void				handle_scroll_callback(double xdelta, double ydelta,
 						void *param);
