@@ -2,8 +2,8 @@
 # define FRACTO_HEADER_H
 
 /* Dependencies */
-# include "libft/libft.h"
-# include "mlx42/include/MLX42/MLX42.h"
+# include "libft.h"
+# include "MLX42.h"
 # include <stdlib.h>
 
 /* Compile-time configuration */
@@ -62,6 +62,8 @@ void				loop_callback(void *param);
 /* Rendering */
 void				pixel_color_data_fillin(int iter, int max_iter, int *color);
 void				rendering_loop(t_context *ctx);
+void				fractals_iter_dispatcher(t_context *ctx, t_complex c,
+						int *iter);
 
 /* Input callbacks */
 void				handle_key_callback(mlx_key_data_t key, void *param);

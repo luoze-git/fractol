@@ -23,7 +23,7 @@ BUILD_DIR = $(MLX42)/build
 MLX42LIB = $(BUILD_DIR)/libmlx42.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I. -I$(MLX42)/include
+CFLAGS = -Wall -Wextra -Werror -I. -I$(MLX42)/include/MLX42 -I$(DLIBFT)
 
 
 # Current OS
@@ -65,4 +65,6 @@ clean :
 	rm -f $(SRC_OBJS)
 	make -C $(DLIBFT) clean
 
-.PHONY: all clean fclean re bonus #debug debug_bonus
+$(SRC_OBJS): fracto_header.h
+
+.PHONY: all clean fclean re bonus

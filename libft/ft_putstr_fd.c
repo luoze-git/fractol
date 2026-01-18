@@ -6,13 +6,13 @@
 /*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:15:06 by luozguo           #+#    #+#             */
-/*   Updated: 2025/08/18 15:17:39 by luozguo          ###   ########.fr       */
+/*   Updated: 2026/01/18 13:22:42 by luozguo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	if (!s)
 		return ;
