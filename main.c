@@ -2,7 +2,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_context ctx;
+	t_context	ctx;
 
 	parse_args(argc, argv, &ctx);
 	init_context(&ctx);

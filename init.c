@@ -1,5 +1,15 @@
 #include "fracto_header.h"
 
+static void	fatal_mlx(const char *context, mlx_errno_t err)
+{
+	ft_putstr_fd("mlx error: ", 2);
+	ft_putstr_fd(context, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(mlx_strerror(err), 2);
+	ft_putstr_fd("\n", 2);
+	exit(EXIT_FAILURE);
+}
+
 // set the initial view for the fractal. Now only for Mandelbrot
 void	set_view(t_context *ctx)
 {
@@ -29,20 +39,24 @@ void	init_hooks(t_context *ctx)
 
 void	init_context(t_context *ctx)
 {
+	mlx_errno_t	err;
+
 	ctx->mlx = mlx_init(WIDTH, HEIGHT, "fractol", false);
 	if (!ctx->mlx)
-		exit(EXIT_FAILURE);
+		fatal_mlx("mlx_init", mlx_get_errno());
 	ctx->img = mlx_new_image(ctx->mlx, WIDTH, HEIGHT);
 	if (!ctx->img)
 	{
+		err = mlx_get_errno();
 		mlx_terminate(ctx->mlx);
-		exit(EXIT_FAILURE);
+		fatal_mlx("mlx_new_image", err);
 	}
 	if (mlx_image_to_window(ctx->mlx, ctx->img, 0, 0) < 0)
 	{
+		err = mlx_get_errno();
 		mlx_delete_image(ctx->mlx, ctx->img);
 		mlx_terminate(ctx->mlx);
-		exit(EXIT_FAILURE);
+		fatal_mlx("mlx_image_to_window", err);
 	}
 	ctx->needs_rendering = 0;
 	ctx->max_iter = 100;
