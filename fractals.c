@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractals.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/18 14:11:06 by luozguo           #+#    #+#             */
+/*   Updated: 2026/01/18 14:12:09 by luozguo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fracto_header.h"
 
 /// @brief quadratic complex fractals escape check
@@ -30,6 +42,7 @@ void	julia_iter_math(t_complex z0, t_complex c, int max_iter, int *out_iter)
 	}
 	*out_iter = iter;
 }
+
 void	tricorn_iter_math(t_complex c, int max_iter, int *out_iter)
 {
 	t_complex	z;

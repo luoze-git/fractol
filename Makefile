@@ -37,8 +37,6 @@ endif
 
 all: $(NAME)
 
-bonus: $(NAME)
-
 $(NAME): $(MLX42LIB) $(SRC_OBJS) $(LIBFT)
 	cc $(CFLAGS) $^ -o $@ -L$(DLIBFT) -l$(FT) -L$(BUILD_DIR) -lmlx42 $(EXT_LIBS)
 
@@ -67,4 +65,4 @@ clean :
 
 $(SRC_OBJS): fracto_header.h
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

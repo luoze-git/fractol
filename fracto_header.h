@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fracto_header.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luozguo <luozguo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/18 14:11:09 by luozguo           #+#    #+#             */
+/*   Updated: 2026/01/18 14:11:10 by luozguo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTO_HEADER_H
 # define FRACTO_HEADER_H
 
 /* Dependencies */
-# include "libft.h"
 # include "MLX42.h"
+# include "libft.h"
 # include <stdlib.h>
 
 /* Compile-time configuration */
