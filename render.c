@@ -1,27 +1,6 @@
 #include "fracto_header.h"
 #include <math.h>
 
-// start + fraction * range
-// todo: review the scaling logic
-void	pixel_to_complex(t_context *ctx, int x, int y, t_complex *out)
-{
-	double	fx;
-	double	fy;
-
-	fx = (double)x / WIDTH;
-	fy = (double)y / HEIGHT;
-	out->r = ctx->view.re_min + fx * (ctx->view.re_max - ctx->view.re_min);
-	out->i = ctx->view.im_max - fy * (ctx->view.im_max - ctx->view.im_min);
-}
-
-/// @brief quadratic complex fractals escape check
-/// @param z
-/// @return true if the point escapes, false otherwise
-int	escape_check(t_complex z)
-{
-	return (z.r * z.r + z.i * z.i > 4.0);
-}
-
 /// @brief increase contrast for depth at the edge.
 /// shift color with each rendering time
 /// @param iter

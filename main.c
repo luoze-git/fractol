@@ -4,6 +4,7 @@ int	main(int argc, char **argv)
 {
 	t_context	ctx;
 
+	ctx = (t_context){0};
 	parse_args(argc, argv, &ctx);
 	init_context(&ctx);
 	rendering_loop(&ctx);

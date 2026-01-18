@@ -1,6 +1,6 @@
 #include "fracto_header.h"
 
-void	zoom_view(t_view *v, double cx, double cy, double factor)
+static void	zoom_view(t_view *v, double cx, double cy, double factor)
 {
 	double	width;
 	double	height;
@@ -75,7 +75,7 @@ void	handle_scroll_callback(double xdelta, double ydelta, void *param)
 	ctx->needs_rendering = 1;
 }
 
-void	loop_hook(void *param)
+void	loop_callback(void *param)
 {
 	t_context	*ctx;
 

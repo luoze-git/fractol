@@ -1,5 +1,13 @@
 #include "fracto_header.h"
 
+/// @brief quadratic complex fractals escape check
+/// @param z
+/// @return true if the point escapes, false otherwise
+static int	escape_check(t_complex z)
+{
+	return (z.r * z.r + z.i * z.i > 4.0);
+}
+
 /// Julia experiment: pixel as z0,
 /// constant: c = fixed and given as cmd arg,
 /// z0 is the current position, z = z^2 + c

@@ -11,7 +11,7 @@ static void	fatal_mlx(const char *context, mlx_errno_t err)
 }
 
 // set the initial view for the fractal. Now only for Mandelbrot
-void	set_view(t_context *ctx)
+static void	set_view(t_context *ctx)
 {
 	if (ctx->fractal_type == FRACTAL_JULIA)
 	{
@@ -34,7 +34,7 @@ void	init_hooks(t_context *ctx)
 {
 	mlx_key_hook(ctx->mlx, handle_key_callback, ctx);
 	mlx_scroll_hook(ctx->mlx, handle_scroll_callback, ctx);
-	mlx_loop_hook(ctx->mlx, loop_hook, ctx);
+	mlx_loop_hook(ctx->mlx, loop_callback, ctx);
 }
 
 void	init_context(t_context *ctx)
